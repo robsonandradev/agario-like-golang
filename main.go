@@ -20,6 +20,14 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
   screen.Fill(color.White)
+  img := ebiten.NewImage(50, 50)
+  img.Fill(color.Black)
+  geom := ebiten.GeoM{}
+  x, y := geom.Apply(50, 50)
+  geom.Translate(x, y)
+  screen.DrawImage(img, &ebiten.DrawImageOptions{
+    GeoM: geom,
+  })
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
