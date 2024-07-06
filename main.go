@@ -12,19 +12,39 @@ const (
 	screenHeight = 480
 )
 
-type Game struct {}
+type Player struct {
+  width int
+  height int
+  positionX float64
+  positionY float64
+}
+
+type Game struct {
+  player *Player
+}
 
 func (g *Game) Update() error {
+  if ebiten.IsKeyPressed(ebiten.KeyArrowRight) {
+    g.player.positionX += 2
+  }
+  if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) {
+    g.player.positionX -= 2
+  }
+  if ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
+    g.player.positionY += 2
+  }
+  if ebiten.IsKeyPressed(ebiten.KeyArrowUp) {
+    g.player.positionY -= 2
+  }
   return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
   screen.Fill(color.White)
-  img := ebiten.NewImage(50, 50)
-  img.Fill(color.Black)
+  img := ebiten.NewImage(g.player.width, g.player.height)
+  img.Fill(LightRed)
   geom := ebiten.GeoM{}
-  x, y := geom.Apply(50, 50)
-  geom.Translate(x, y)
+  geom.Translate(g.player.positionX, g.player.positionY)
   screen.DrawImage(img, &ebiten.DrawImageOptions{
     GeoM: geom,
   })
@@ -35,10 +55,19 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
 }
 
 func main() {
-	g := &Game{}
-	ebiten.SetWindowSize(screenWidth, screenHeight)
-	ebiten.SetWindowTitle("Cursor (Ebitengine Demo)")
+  player := &Player{
+    width: 40,
+    height: 40,
+    positionX: 40,
+    positionY: 40,
+  }
+	g := &Game{
+    player: player,
+  }
+  ebiten.SetWindowSize(screenWidth, screenHeight)
+	ebiten.SetWindowTitle("Space Foodie")
   ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
+  ebiten.SetWindowPosition(1000, 300)
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
 	}
