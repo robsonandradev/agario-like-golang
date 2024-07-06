@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	screenWidth  = 640
-	screenHeight = 480
+	screenWidth  = 600
+	screenHeight = 800
 )
 
 type Player struct {
@@ -42,7 +42,7 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
   screen.Fill(color.White)
   img := ebiten.NewImage(g.player.width, g.player.height)
-  img.Fill(LightRed)
+  img.Fill(colors.DarkBlue)
   geom := ebiten.GeoM{}
   geom.Translate(g.player.positionX, g.player.positionY)
   screen.DrawImage(img, &ebiten.DrawImageOptions{
@@ -66,8 +66,8 @@ func main() {
   }
   ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Space Foodie")
-  ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
-  ebiten.SetWindowPosition(1000, 300)
+  //ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
+  ebiten.SetWindowPosition(1300, 0)
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
 	}
