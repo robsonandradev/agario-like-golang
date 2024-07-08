@@ -2,8 +2,6 @@ package main
 
 import (
   "log"
-	//"image"
-  "image/color"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -40,9 +38,9 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-  screen.Fill(color.White)
+  screen.Fill(colors.White)
   img := ebiten.NewImage(g.player.width, g.player.height)
-  img.Fill(colors.DarkBlue)
+  img.Fill(colors.DarkRed)
   geom := ebiten.GeoM{}
   geom.Translate(g.player.positionX, g.player.positionY)
   screen.DrawImage(img, &ebiten.DrawImageOptions{
@@ -56,10 +54,10 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
 
 func main() {
   player := &Player{
-    width: 40,
-    height: 40,
-    positionX: 40,
-    positionY: 40,
+    width: 20,
+    height: 20,
+    positionX: 200,
+    positionY: 700,
   }
 	g := &Game{
     player: player,

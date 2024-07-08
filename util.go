@@ -6,6 +6,8 @@ import (
 
 type Colors struct {
   DarkBlue   color.RGBA
+  White      color.RGBA
+  Black      color.RGBA
   LightBlue  color.RGBA
   DarkRed    color.RGBA
   LightRed   color.RGBA
@@ -19,6 +21,8 @@ type Colors struct {
 
 var (
   colors = Colors{
+    White: color.RGBA{255, 255, 255, 255},
+    Black: color.RGBA{0, 0, 0, 255},
     DarkBlue: color.RGBA{0, 0, 153, 255},
     LightBlue: color.RGBA{51, 153, 255, 255},
     DarkRed: color.RGBA{153, 0, 0, 255},
