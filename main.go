@@ -7,15 +7,8 @@ import (
 
 const (
 	screenWidth  = 600
-	screenHeight = 800
+	screenHeight = 805
 )
-
-type Player struct {
-  width int
-  height int
-  positionX float64
-  positionY float64
-}
 
 type Game struct {
   player *Player
@@ -39,27 +32,16 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
   screen.Fill(colors.White)
-  img := ebiten.NewImage(g.player.width, g.player.height)
-  img.Fill(colors.DarkRed)
-  geom := ebiten.GeoM{}
-  geom.Translate(g.player.positionX, g.player.positionY)
-  screen.DrawImage(img, &ebiten.DrawImageOptions{
-    GeoM: geom,
-  })
+  g.player.draw(screen)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
-	return screenWidth, screenHeight
+  return screenWidth, screenHeight
 }
 
 func main() {
-  player := &Player{
-    width: 20,
-    height: 20,
-    positionX: 200,
-    positionY: 700,
-  }
-	g := &Game{
+  player := NewPlayer()
+  g := &Game{
     player: player,
   }
   ebiten.SetWindowSize(screenWidth, screenHeight)
