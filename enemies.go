@@ -13,9 +13,20 @@ type Enemie struct {
   color color.RGBA
 }
 
-func NewEnemie() []Enemie {
+func NewEnemies() []*Enemie {
   // add random color
-  return []Enemie{}
+  var enemies []*Enemie
+  for i := range 3 {
+    enemie := &Enemie{
+      width: 10,
+      height: 10,
+      positionX: float64(i * 30),
+      positionY: float64(i * 60),
+      color: colors.Orange,
+    }
+    enemies = append(enemies, enemie)
+  }
+  return enemies
 }
 
 func (e Enemie) draw(screen *ebiten.Image) {

@@ -12,19 +12,20 @@ const (
 
 type Game struct {
   player *Player
+  enemies []*Enemie
 }
 
 func (g *Game) Update() error {
-  if ebiten.IsKeyPressed(ebiten.KeyArrowRight) {
+  if ebiten.IsKeyPressed(ebiten.KeyL) {
     g.player.positionX += 2
   }
-  if ebiten.IsKeyPressed(ebiten.KeyArrowLeft) {
+  if ebiten.IsKeyPressed(ebiten.KeyH) {
     g.player.positionX -= 2
   }
-  if ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
+  if ebiten.IsKeyPressed(ebiten.KeyJ) {
     g.player.positionY += 2
   }
-  if ebiten.IsKeyPressed(ebiten.KeyArrowUp) {
+  if ebiten.IsKeyPressed(ebiten.KeyK) {
     g.player.positionY -= 2
   }
   return nil
@@ -33,6 +34,9 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
   screen.Fill(colors.White)
   g.player.draw(screen)
+  for _, enemie := range g.enemies {
+    enemie.draw(screen)
+  }
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
@@ -43,6 +47,7 @@ func main() {
   player := NewPlayer()
   g := &Game{
     player: player,
+    enemies: NewEnemies(),
   }
   ebiten.SetWindowSize(screenWidth, screenHeight)
 	ebiten.SetWindowTitle("Space Foodie")
